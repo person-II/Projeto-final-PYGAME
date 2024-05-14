@@ -40,3 +40,12 @@ def gerar_comida():
 
 def desenhar_comida(tamanho, comida_x, comida_y):
     tela.blit(fotocomida, [comida_x,comida_y])
+
+def desenhar_cobra(tamanho, pixels):
+    for pixel in pixels:
+        tela.blit(fotocobra, (pixel[0], pixel[1]))
+
+def desenhar_pontuacao(pontuacao):
+    fonte = pygame.font.SysFont("Verdana", 35)
+    texto = fonte.render(f"Pontos: {pontuacao}x", True, vermelha)
+    tela.blit(texto, [1, 1])
