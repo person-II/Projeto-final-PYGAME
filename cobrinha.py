@@ -19,3 +19,16 @@ preta = (0, 0, 0)
 branca = (255, 255, 255)
 vermelha = (255, 0, 0)
 verde = (0, 255, 0)
+
+# parametros da cobrinha
+tamanho_quadrado_cobra = 50
+tamanho_quadrado_comida = 50
+velocidade_jogo = 5
+
+#foto corpo
+fotocobra = pygame.image.load('prof.png')
+fotocobra = pygame.transform.scale(fotocobra, (tamanho_quadrado_cobra, tamanho_quadrado_cobra))
+profinteiro = pygame.transform.scale(fotocobra, (largura,altura))
+#foto comida
+fotocomida = pygame.image.load('bitcoin.png').convert_alpha()
+fotocomida = pygame.transform.scale(fotocomida, (tamanho_quadrado_comida, tamanho_quadrado_comida))
