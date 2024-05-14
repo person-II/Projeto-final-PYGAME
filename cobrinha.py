@@ -33,4 +33,10 @@ profinteiro = pygame.transform.scale(fotocobra, (largura,altura))
 fotocomida = pygame.image.load('bitcoin.png').convert_alpha()
 fotocomida = pygame.transform.scale(fotocomida, (tamanho_quadrado_comida, tamanho_quadrado_comida))
 
+def gerar_comida():
+    comida_x = round(random.randrange(0, largura - tamanho_quadrado_comida) / float(tamanho_quadrado_comida)) * float(tamanho_quadrado_comida)
+    comida_y = round(random.randrange(0, altura - tamanho_quadrado_comida) / float(tamanho_quadrado_comida)) * float(tamanho_quadrado_comida)
+    return comida_x, comida_y
 
+def desenhar_comida(tamanho, comida_x, comida_y):
+    tela.blit(fotocomida, [comida_x,comida_y])
