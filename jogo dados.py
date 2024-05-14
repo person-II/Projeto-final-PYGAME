@@ -15,9 +15,9 @@ clock = time.Clock()
 display.set_caption('dado')
 
 # * FONTES
-my_font = font.Font('snail game/fontt/open-sans/OpenSans-Regular.ttf', 30)
-my_font2 = font.Font('snail game/fontt/open-sans/OpenSans-Regular.ttf', 25)
-my_font3 = font.Font('snail game/fontt/open-sans/OpenSans-Regular.ttf', 15)
+my_font = font.SysFont('OpensSans-Regular', 30)
+my_font2 = font.SysFont('OpensSans-Regular', 25)
+my_font3 = font.SysFont('OpensSans-Regular', 15)
 
 # * SUPERFICIES / IMAGENS ...
 jogando = my_font.render('jogando dados...', False, 'Black')
