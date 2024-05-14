@@ -9,9 +9,6 @@ init()
 TAMANHO = (500, 600)
 FPS = 60
 
-# * VARIAVEIS
-PONTOS_INICIAIS = 100
-
 # * JANELA E CLOCK
 screen = display.set_mode(TAMANHO)
 clock = time.Clock()
@@ -63,11 +60,74 @@ rect_allwin = rect_allwin.get_rect(midleft=(380, 400))
 allwin_txt = my_font3.render('ALL WIN', False, 'Black')
 allwin_txt_rect = allwin_txt.get_rect(midleft=(385, 400))
 
+# * CAIXA DE TEXTO - USERNAME
+username = ''
+input_rect = Rect(100, 545, 140, 40)
+color_active = Color('Light Gray')
+color_passive = Color('lightskyblue3')
+colorr = color_passive
+type_active = False
+
+
+# * VARIAVEIS
+PONTOS_INICIAIS = 100
+clicou = False
+bet = True
+Draw = True
+placed_bet = False
+aposta = 0
+
 running = True
 while running:
     for ev in event.get():
         if ev.type == QUIT:
             running = False
+        
+        if ev.type == MOUSEBUTTONDOWN:
+            if input_rect.collidepoint(ev.pos):
+                type_active = True
+            else:
+                type_active = False
+
+        if ev.type == KEYDOWN:
+            if type_active:
+                if ev.key == K_BACKSPACE:
+                    username = username[:-1]
+                elif ev.key == K_RETURN:
+                    done_username = True
+                else:
+                    username += ev.unicode
+    
+    if type_active:
+        colorr = color_active
+    else:
+        colorr = color_passive
+    screen.fill((94, 129, 162))
+    draw.rect(screen, colorr, input_rect, 2)
+    text_surf = my_font2.render(username, True, (0, 0, 0))
+    screen.blit(text_surf, (input_rect.x + 5, input_rect.y + 5))
+    input_rect.w = max(150, text_surf.get_width() + 10)
+
+    pontos_txt = my_font.render(f'SEUS PONTOS >> {PONTOS_INICIAIS}', False, 'Red')
+    pontos_rect = pontos_txt.get_rect(center=(250, 50))
+    screen.blit(pontos_txt, pontos_rect)
+    screen.blit(jogando, jogando_rect)
+    draw.rect(screen, 'Blue', rect_az, border_radius=15)
+    draw.rect(screen, 'Red', rect_ver, border_radius=15)
+    # draw.rect(screen, 'Green', rect5, border_radius=50, width=6)
+    # draw.rect(screen, 'Orange', rect10, border_radius=50, width=6)
+    # draw.rect(screen, 'Dark Blue', rect20, border_radius=50, width=6)
+    draw.rect(screen, 'Light Blue', rect_allwin, border_radius=30)
+    screen.blit(allwin_txt, allwin_txt_rect)
+    draw.circle(screen, 'Green', (124, 400), 31, width=6)
+    draw.circle(screen, 'Orange', (215, 400), 33.7, width=6)
+    draw.circle(screen, 'Dark Blue', (312, 400), 41.5, width=6)
+    screen.blit(moeda5_txt, txt_5_rect)
+    screen.blit(moeda10_txt, txt_10_rect)
+    screen.blit(moeda20_txt, txt_20_rect)
+    aposta_txt = my_font.render(f'APOSTA: {aposta}', False, 'Dark Gray')
+    aposta_rect = aposta_txt.get_rect(center=(250, 230))
+    screen.blit(aposta_txt, aposta_rect)
 
     display.update()
     clock.tick(FPS)
