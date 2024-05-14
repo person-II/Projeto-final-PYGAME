@@ -32,3 +32,5 @@ profinteiro = pygame.transform.scale(fotocobra, (largura,altura))
 #foto comida
 fotocomida = pygame.image.load('bitcoin.png').convert_alpha()
 fotocomida = pygame.transform.scale(fotocomida, (tamanho_quadrado_comida, tamanho_quadrado_comida))
+
+
