@@ -98,8 +98,8 @@ def tela_fim(pontuacao):
     texto = fonte.render(f"VOCÊ GANHOU: ", True, vermelha)
     pont = fonte.render(f"{pontuacao*10} PONTOS", True, verde)
     tela.blit(proffim, [0,0])
-    tela.blit(texto, [(largura // 2 - texto.get_width() // 2), (altura // 2 - texto.get_height() // 2)+10])
-    tela.blit(pont,[largura/2, (altura/2)+20])
+    tela.blit(texto, [(largura // 2 - texto.get_width() // 2)-80, (altura // 2 - texto.get_height() // 2)-100])
+    tela.blit(pont,[(largura/2)-100, (altura/2)-80])
     
     pygame.display.update()
     pygame.time.wait(4000)
