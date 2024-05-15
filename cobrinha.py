@@ -90,8 +90,8 @@ def desenhar_grid():
 def tela_fim(pontuacao):
     tela.fill(preta)
     fonte = pygame.font.SysFont("Impact", 40)
-    texto = fonte.render(f"VOCÊ GANHOU MULTIPLICADOR DE: ", True, vermelha)
-    pont = fonte.render(f"{pontuacao}x", True, verde)
+    texto = fonte.render(f"VOCÊ GANHOU : ", True, vermelha)
+    pont = fonte.render(f"{pontuacao*10} pontos", True, verde)
     tela.blit(profinteiro, [0,0])
     tela.blit(texto, [largura // 2 - texto.get_width() // 2, altura // 2 - texto.get_height() // 2])
     tela.blit(pont,[largura/2, (altura/2)+20])
