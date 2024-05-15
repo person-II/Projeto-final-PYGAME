@@ -98,3 +98,76 @@ def tela_fim(pontuacao):
     
     pygame.display.update()
     pygame.time.wait(4000)
+
+#código do jogo em si
+
+def rodar_jogo():
+    veloc = velocidade_jogo
+    fim_jogo = False
+
+    x = largura / 2
+    y = altura / 2
+
+    velocidade_x = 0
+    velocidade_y = 0
+
+    tamanho_cobra = 1
+    pixels = []
+
+    comida_x, comida_y = gerar_comida()
+
+    while not fim_jogo:
+        tela.fill(preta)
+        desenhar_grid()
+        tela.blit(fundo, (0,0))
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                fim_jogo = True
+            elif event.type == pygame.KEYDOWN:
+                velocidade_x, velocidade_y = selecionar_velocidade(event.key, velocidade_x, velocidade_y)
+
+        # desenhar_comida
+        desenhar_comida(tamanho_quadrado_comida, comida_x, comida_y)
+
+        # atualizar a posicao da cobra
+        if x < 0 or x >= largura or y < 0 or y >= altura:
+            fim_jogo = True
+
+        x += velocidade_x
+        y += velocidade_y
+
+        # desenhar_cobra
+        pixels.append([x, y])
+        if len(pixels) > tamanho_cobra:
+            del pixels[0]
+
+        # se a cobrinha bateu no proprio corpo
+        for pixel in pixels[:-1]:
+            if pixel == [x, y]:
+                fim_jogo = True
+                
+
+        desenhar_cobra(tamanho_quadrado_cobra, pixels)
+
+        # desenhar_pontos
+        desenhar_pontuacao(tamanho_cobra - 1)
+
+
+
+        # atualizacao da tela
+        pygame.display.update()
+
+        #nova comida
+        if x == comida_x and y == comida_y:
+            tamanho_cobra += 1
+            veloc += 1 
+            comida_x, comida_y = gerar_comida()
+
+        relogio.tick(veloc)
+
+        if fim_jogo:
+            tela_fim(tamanho_cobra - 1)
+
+
+rodar_jogo()
