@@ -54,6 +54,10 @@ ficha5_rect = ficha_v_5.get_rect(midleft=(40, 400))
 ficha10_rect = ficha_v_5.get_rect(midleft=(125, 390))
 ficha20_rect = ficha_v_5.get_rect(midleft=(220, 380))
 fichaallwin_rect = ficha_allwin.get_rect(midleft=(330, 400))
+lg_5 = my_font2.render('5')
+lg_10 = my_font2.render('10')
+lg_20 = my_font2.render('20')
+lg_allwin = my_font2.render('ALL WIN')
 
 enter_button = Surface((100, 55))
 enter_button_rect = enter_button.get_rect(topleft=(10, 540))
@@ -179,6 +183,11 @@ while running:
     screen.blit(ficha_l_10, ficha10_rect)
     screen.blit(ficha_a_20, ficha20_rect)
     screen.blit(ficha_allwin, fichaallwin_rect)
+
+    screen.blit(lg_5, (ficha5_rect.x + 35, ficha5_rect.y + 75))
+    screen.blit(lg_10, (ficha10_rect.x + 36, ficha10_rect.y + 95))
+    screen.blit(lg_20, (ficha20_rect.x + 50, ficha20_rect.y + 110))
+    screen.blit(lg_allwin, (fichaallwin_rect.x + 25, fichaallwin_rect.y + 135))
 
     aposta_txt = my_font.render(f'APOSTA: {aposta}', False, 'Dark Gray')
     aposta_rect = aposta_txt.get_rect(center=(265, 230))
