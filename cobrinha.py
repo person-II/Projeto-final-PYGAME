@@ -86,3 +86,15 @@ def desenhar_grid():
                 else:
                     cor = cor_clara
             pygame.draw.rect(tela, cor, pygame.Rect(i, j, tamanho_quadrado_cobra, tamanho_quadrado_cobra))
+
+def tela_fim(pontuacao):
+    tela.fill(preta)
+    fonte = pygame.font.SysFont("Impact", 40)
+    texto = fonte.render(f"VOCÊ GANHOU MULTIPLICADOR DE: ", True, vermelha)
+    pont = fonte.render(f"{pontuacao}x", True, verde)
+    tela.blit(profinteiro, [0,0])
+    tela.blit(texto, [largura // 2 - texto.get_width() // 2, altura // 2 - texto.get_height() // 2])
+    tela.blit(pont,[largura/2, (altura/2)+20])
+    
+    pygame.display.update()
+    pygame.time.wait(4000)
