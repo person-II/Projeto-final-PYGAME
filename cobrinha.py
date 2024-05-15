@@ -29,6 +29,11 @@ velocidade_jogo = 5
 fotocobra = pygame.image.load('prof.png')
 fotocobra = pygame.transform.scale(fotocobra, (tamanho_quadrado_cobra, tamanho_quadrado_cobra))
 profinteiro = pygame.transform.scale(fotocobra, (largura,altura))
+
+#foto prof fim
+proffim = pygame.image.load('proffim.jpeg')
+proffim = pygame.transform.scale(proffim, (largura,altura))
+
 #foto comida
 fotocomida = pygame.image.load('bitcoin.png').convert_alpha()
 fotocomida = pygame.transform.scale(fotocomida, (tamanho_quadrado_comida, tamanho_quadrado_comida))
@@ -90,10 +95,10 @@ def desenhar_grid():
 def tela_fim(pontuacao):
     tela.fill(preta)
     fonte = pygame.font.SysFont("Impact", 40)
-    texto = fonte.render(f"VOCÊ GANHOU MULTIPLICADOR DE: ", True, vermelha)
-    pont = fonte.render(f"{pontuacao}x", True, verde)
-    tela.blit(profinteiro, [0,0])
-    tela.blit(texto, [largura // 2 - texto.get_width() // 2, altura // 2 - texto.get_height() // 2])
+    texto = fonte.render(f"VOCÊ GANHOU: ", True, vermelha)
+    pont = fonte.render(f"{pontuacao*10} PONTOS", True, verde)
+    tela.blit(proffim, [0,0])
+    tela.blit(texto, [(largura // 2 - texto.get_width() // 2), (altura // 2 - texto.get_height() // 2)+10])
     tela.blit(pont,[largura/2, (altura/2)+20])
     
     pygame.display.update()
