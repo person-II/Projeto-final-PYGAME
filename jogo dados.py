@@ -5,6 +5,42 @@ import json
 
 init()
 
+class DadoAzul():
+    def __init__(self) -> None:
+        super().__init__()
+
+        f1 = image.load('snake game/assets/1 az.png')
+        f2 = image.load('snake game/assets/2 az.png')
+        f3 = image.load('snake game/assets/3 az.png')
+        f4 = image.load('snake game/assets/4 az.png')
+        f5 = image.load('snake game/assets/5 az.png')
+        f6 = image.load('snake game/assets/6 az.png')
+
+        self.frames = [f1, f2, f3, f4, f5, f6]
+        self.index = 0
+        self.image = self.frames[self.index]
+
+    def animation_azul(self):
+        pass
+
+class DadoVermelho():
+    def __init__(self) -> None:
+        super().__init__()
+
+        f1 = image.load('snake game/assets/1 verm.png')
+        f2 = image.load('snake game/assets/2 verm.png')
+        f3 = image.load('snake game/assets/3 verm.png')
+        f4 = image.load('snake game/assets/4 verm.png')
+        f5 = image.load('snake game/assets/5 verm.png')
+        f6 = image.load('snake game/assets/6 verm.png')
+
+        self.frames = [f1, f2, f3, f4, f5, f6]
+        self.index = 0
+        self.image = self.frames[self.index]
+    
+    def animation_red(self):
+        pass
+
 # * CONSTANTES
 TAMANHO = (530, 600)
 FPS = 60
