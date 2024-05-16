@@ -42,10 +42,10 @@ play_again2 = my_font2.render('jogar novamente', False, 'Black')
 again_rect = play_again.get_rect(center=(250, 480))
 again2_rect = play_again2.get_rect(center=(250, 505))
 
-ficha_v_5 = image.load('snake game/assets/ficha vermelha.png')
-ficha_l_10 = image.load('snake game/assets/ficha laranja.png')
-ficha_a_20 = image.load('snake game/assets/ficha azul.png')
-ficha_allwin = image.load('snake game/assets/ficha all win.png')
+ficha_v_5 = image.load('assets/ficha vermelha.png')
+ficha_l_10 = image.load('assets/ficha laranja.png')
+ficha_a_20 = image.load('assets/ficha azul.png')
+ficha_allwin = image.load('assets/ficha all win.png')
 ficha_v_5 = transform.scale(ficha_v_5, (85, 85))
 ficha_l_10 = transform.scale(ficha_l_10, (105, 105))
 ficha_a_20 = transform.scale(ficha_a_20, (125, 125))
@@ -107,7 +107,7 @@ while running:
         if ev.type == MOUSEBUTTONDOWN:
             mouse_pos = mouse.get_pos()
             if enter_button_rect.collidepoint(mouse_pos):
-                with open("snake game/RANKINGS.json") as f:
+                with open("RANKINGS.json") as f:
                     data = json.load(f)
                 if username not in data:
                     done_username = True
