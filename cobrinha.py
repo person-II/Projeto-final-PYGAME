@@ -26,16 +26,16 @@ tamanho_quadrado_comida = 50
 velocidade_jogo = 5
 
 #foto corpo
-fotocobra = pygame.image.load('prof.png')
+fotocobra = pygame.image.load('assets/prof.png')
 fotocobra = pygame.transform.scale(fotocobra, (tamanho_quadrado_cobra, tamanho_quadrado_cobra))
 profinteiro = pygame.transform.scale(fotocobra, (largura,altura))
 
 #foto prof fim
-proffim = pygame.image.load('proffim.jpeg')
+proffim = pygame.image.load('assets/proffim.jpeg')
 proffim = pygame.transform.scale(proffim, (largura,altura))
 
 #foto comida
-fotocomida = pygame.image.load('bitcoin.png').convert_alpha()
+fotocomida = pygame.image.load('assets/bitcoin.png').convert_alpha()
 fotocomida = pygame.transform.scale(fotocomida, (tamanho_quadrado_comida, tamanho_quadrado_comida))
 
 def gerar_comida():
