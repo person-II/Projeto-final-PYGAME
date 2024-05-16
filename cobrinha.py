@@ -52,7 +52,7 @@ def desenhar_cobra(tamanho, pixels):
 
 def desenhar_pontuacao(pontuacao):
     fonte = pygame.font.SysFont("Verdana", 35)
-    texto = fonte.render(f"Pontos: {pontuacao}", True, vermelha)
+    texto = fonte.render(f"Pontos: {pontuacao*10}", True, vermelha)
     tela.blit(texto, [1, 1])
 
 def selecionar_velocidade(tecla, velocidade_x, velocidade_y):
