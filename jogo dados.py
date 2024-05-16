@@ -6,7 +6,7 @@ import json
 init()
 
 # * CONSTANTES
-TAMANHO = (500, 600)
+TAMANHO = (530, 600)
 FPS = 60
 
 # * JANELA E CLOCK
@@ -15,21 +15,25 @@ clock = time.Clock()
 display.set_caption('dado')
 
 # * FONTES
-my_font = font.SysFont('OpenSans-Regular', 30)
-my_font2 = font.SysFont('OpenSans-Regular', 25)
-my_font3 = font.SysFont('OpenSans-Regular', 15)
+# mudar path depois
+my_font = font.Font('snail game/fontt/open-sans/OpenSans-Regular.ttf', 30)
+my_font2 = font.Font('snail game/fontt/open-sans/OpenSans-Regular.ttf', 25)
+my_font3 = font.Font('snail game/fontt/open-sans/OpenSans-Regular.ttf', 15)
 
-# * SUPERFICIES / IMAGENS ...
+# * IMAGENS / SURFACES ...
+# ? jogando dados (seria animação)
 jogando = my_font.render('jogando dados...', False, 'Black')
-jogando_rect = jogando.get_rect(center=(250, 100))
+jogando_rect = jogando.get_rect(center=(265, 100))
 
+# ? mendagem derrota vitoria
 victory = my_font.render('VITORIA', False, 'Black')
 defeat = my_font.render('DERROTA', False, 'Black')
 tie = my_font.render('EMPATE', False, 'Black')
-vic_rect = victory.get_rect(center=(250, 150))
-def_rect = defeat.get_rect(center=(250, 150))
-tie_rect = tie.get_rect(center=(250, 150))
+vic_rect = victory.get_rect(center=(265, 150))
+def_rect = defeat.get_rect(center=(265, 150))
+tie_rect = tie.get_rect(center=(265, 150))
 
+# ? quadrado escolha cor
 rect_ver = Surface((100, 65))
 rect_ver.fill('Red')
 rect_ver = rect_ver.get_rect(topleft=(275, 270))
@@ -37,11 +41,13 @@ rect_az = Surface((100, 65))
 rect_az.fill('Blue')
 rect_az = rect_az.get_rect(topleft=(125, 270))
 
+# ? espaço para play again
 play_again = my_font2.render('pressione espaço para', False, 'Black')
 play_again2 = my_font2.render('jogar novamente', False, 'Black')
-again_rect = play_again.get_rect(center=(250, 480))
-again2_rect = play_again2.get_rect(center=(250, 505))
+again_rect = play_again.get_rect(center=(265, 480))
+again2_rect = play_again2.get_rect(center=(265, 505))
 
+# ? fichas e legendas
 ficha_v_5 = image.load('assets/ficha vermelha.png')
 ficha_l_10 = image.load('assets/ficha laranja.png')
 ficha_a_20 = image.load('assets/ficha azul.png')
@@ -54,17 +60,18 @@ ficha5_rect = ficha_v_5.get_rect(midleft=(40, 400))
 ficha10_rect = ficha_v_5.get_rect(midleft=(125, 390))
 ficha20_rect = ficha_v_5.get_rect(midleft=(220, 380))
 fichaallwin_rect = ficha_allwin.get_rect(midleft=(330, 400))
-lg_5 = my_font2.render('5')
-lg_10 = my_font2.render('10')
-lg_20 = my_font2.render('20')
-lg_allwin = my_font2.render('ALL WIN')
+lg_5 = my_font2.render('5', False, 'Black')
+lg_10 = my_font2.render('10', False, 'Black')
+lg_20 = my_font2.render('20', False, 'Black')
+lg_allwin = my_font2.render('ALL WIN', False, 'Black')
 
+# ? caixa enter texto
 enter_button = Surface((100, 55))
 enter_button_rect = enter_button.get_rect(topleft=(10, 540))
 enter_txt = my_font2.render('Enter', False, 'Black')
 enter_txt_rect = enter_txt.get_rect(topleft=(28, 550))
 
-# * USERNAME
+# ? caixa de texto
 username = ''
 input_rect = Rect(120, 540, 140, 55)
 color_active = Color('Light Gray')
@@ -82,6 +89,43 @@ aposta = 0
 one_time = True
 done_username = False
 lost = False
+
+# * FUNÇÕES
+def jogar_dados():
+    return randint(1, 6)
+
+def betting(aposta, win):
+    global PONTOS_INICIAIS
+
+    if win == True:
+        PONTOS_INICIAIS += (aposta * 2)
+    elif win == 'tie':
+        PONTOS_INICIAIS += aposta
+    elif win == False:    
+        pass
+        # ja perdeu dinheiro na aposta
+
+def Can_AcessDatabase():
+    if one_time:
+        if done_username:
+            return True
+    return False
+
+def AcessDatabase():
+    global username
+    with open("RANKINGS.json", 'r+') as f:
+        data = json.load(f)
+        user_count = len(list(data.keys())) + 1
+        if not username:
+            username = f"user{user_count}"
+        data[username] = PONTOS_INICIAIS
+        data = dict(sorted(data.items(), key=lambda x:x[1], reverse=True))
+        ''' refrencia linha a cima: 
+        https://www.freecodecamp.org/news/sort-dictionary-by-value-in-python/
+        '''
+        f.seek(0)
+        f.truncate()
+        json.dump(data, f, indent=4)
 
 
 running = True
