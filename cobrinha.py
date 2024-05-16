@@ -29,6 +29,11 @@ velocidade_jogo = 5
 fotocobra = pygame.image.load('prof.png')
 fotocobra = pygame.transform.scale(fotocobra, (tamanho_quadrado_cobra, tamanho_quadrado_cobra))
 profinteiro = pygame.transform.scale(fotocobra, (largura,altura))
+
+#foto prof fim
+proffim = pygame.image.load('proffim.jpeg')
+proffim = pygame.transform.scale(proffim, (largura,altura))
+
 #foto comida
 fotocomida = pygame.image.load('bitcoin.png').convert_alpha()
 fotocomida = pygame.transform.scale(fotocomida, (tamanho_quadrado_comida, tamanho_quadrado_comida))
@@ -47,7 +52,7 @@ def desenhar_cobra(tamanho, pixels):
 
 def desenhar_pontuacao(pontuacao):
     fonte = pygame.font.SysFont("Verdana", 35)
-    texto = fonte.render(f"Pontos: {pontuacao}x", True, vermelha)
+    texto = fonte.render(f"Pontos: {pontuacao}", True, vermelha)
     tela.blit(texto, [1, 1])
 
 def selecionar_velocidade(tecla, velocidade_x, velocidade_y):
@@ -90,11 +95,84 @@ def desenhar_grid():
 def tela_fim(pontuacao):
     tela.fill(preta)
     fonte = pygame.font.SysFont("Impact", 40)
-    texto = fonte.render(f"VOCÊ GANHOU : ", True, vermelha)
-    pont = fonte.render(f"{pontuacao*10} pontos", True, verde)
+    texto = fonte.render(f"VOCÊ GANHOU MULTIPLICADOR DE: ", True, vermelha)
+    pont = fonte.render(f"{pontuacao}x", True, verde)
     tela.blit(profinteiro, [0,0])
     tela.blit(texto, [largura // 2 - texto.get_width() // 2, altura // 2 - texto.get_height() // 2])
     tela.blit(pont,[largura/2, (altura/2)+20])
     
     pygame.display.update()
     pygame.time.wait(4000)
+
+#código do jogo em si
+
+def rodar_jogo():
+    veloc = velocidade_jogo
+    fim_jogo = False
+
+    x = largura / 2
+    y = altura / 2
+
+    velocidade_x = 0
+    velocidade_y = 0
+
+    tamanho_cobra = 1
+    pixels = []
+
+    comida_x, comida_y = gerar_comida()
+
+    while not fim_jogo:
+        tela.fill(preta)
+        desenhar_grid()
+        tela.blit(fundo, (0,0))
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                fim_jogo = True
+            elif event.type == pygame.KEYDOWN:
+                velocidade_x, velocidade_y = selecionar_velocidade(event.key, velocidade_x, velocidade_y)
+
+        # desenhar_comida
+        desenhar_comida(tamanho_quadrado_comida, comida_x, comida_y)
+
+        # atualizar a posicao da cobra
+        if x < 0 or x >= largura or y < 0 or y >= altura:
+            fim_jogo = True
+
+        x += velocidade_x
+        y += velocidade_y
+
+        # desenhar_cobra
+        pixels.append([x, y])
+        if len(pixels) > tamanho_cobra:
+            del pixels[0]
+
+        # se a cobrinha bateu no proprio corpo
+        for pixel in pixels[:-1]:
+            if pixel == [x, y]:
+                fim_jogo = True
+                
+
+        desenhar_cobra(tamanho_quadrado_cobra, pixels)
+
+        # desenhar_pontos
+        desenhar_pontuacao(tamanho_cobra - 1)
+
+
+
+        # atualizacao da tela
+        pygame.display.update()
+
+        #nova comida
+        if x == comida_x and y == comida_y:
+            tamanho_cobra += 1
+            veloc += 1 
+            comida_x, comida_y = gerar_comida()
+
+        relogio.tick(veloc)
+
+        if fim_jogo:
+            tela_fim(tamanho_cobra - 1)
+
+
+rodar_jogo()
