@@ -9,12 +9,12 @@ class DadoAzul(sprite.Sprite):
     def __init__(self) -> None:
         super().__init__()
 
-        f1 = image.load('assets/1 az.png').convert_alpha()
-        f2 = image.load('assets/2 az.png').convert_alpha()
-        f3 = image.load('assets/3 az.png').convert_alpha()
-        f4 = image.load('assets/4 az.png').convert_alpha()
-        f5 = image.load('assets/5 az.png').convert_alpha()
-        f6 = image.load('assets/6 az.png').convert_alpha()
+        f1 = image.load('assets/jogo dados/1 az.png').convert_alpha()
+        f2 = image.load('assets/jogo dados/2 az.png').convert_alpha()
+        f3 = image.load('assets/jogo dados/3 az.png').convert_alpha()
+        f4 = image.load('assets/jogo dados/4 az.png').convert_alpha()
+        f5 = image.load('assets/jogo dados/5 az.png').convert_alpha()
+        f6 = image.load('assets/jogo dados/6 az.png').convert_alpha()
 
         self.frames = [f1, f2, f3, f4, f5, f6]
         self.index = 0
@@ -31,12 +31,12 @@ class DadoVermelho(sprite.Sprite):
     def __init__(self) -> None:
         super().__init__()
 
-        f1 = image.load('assets/1 ve.png').convert_alpha()
-        f2 = image.load('assets/2 ve.png').convert_alpha()
-        f3 = image.load('assets/3 ve.png').convert_alpha()
-        f4 = image.load('assets/4 ve.png').convert_alpha()
-        f5 = image.load('assets/5 ve.png').convert_alpha()
-        f6 = image.load('assets/6 ve.png').convert_alpha()
+        f1 = image.load('assets/jogo dados/1 ve.png').convert_alpha()
+        f2 = image.load('assets/jogo dados/2 ve.png').convert_alpha()
+        f3 = image.load('assets/jogo dados/3 ve.png').convert_alpha()
+        f4 = image.load('assets/jogo dados/4 ve.png').convert_alpha()
+        f5 = image.load('assets/jogo dados/5 ve.png').convert_alpha()
+        f6 = image.load('assets/jogo dados/6 ve.png').convert_alpha()
 
         self.frames = [f1, f2, f3, f4, f5, f6]
         self.index = 0
@@ -59,9 +59,9 @@ clock = time.Clock()
 display.set_caption('dado')
 
 # * FONTES
-my_font = font.Font('fontt/open-sans/OpenSans-Regular.ttf', 30)
-my_font2 = font.Font('fontt/open-sans/OpenSans-Regular.ttf', 25)
-my_font3 = font.Font('fontt/open-sans/OpenSans-Regular.ttf', 15)
+my_font = font.Font('assets/fontt/open-sans/OpenSans-Regular.ttf', 30)
+my_font2 = font.Font('assets/fontt/open-sans/OpenSans-Regular.ttf', 25)
+my_font3 = font.Font('assets/fontt/open-sans/OpenSans-Regular.ttf', 15)
 
 # * IMAGENS / SURFACES ...
 # ? jogando dados (seria animação)
@@ -91,10 +91,10 @@ again_rect = play_again.get_rect(center=(265, 480))
 again2_rect = play_again2.get_rect(center=(265, 505))
 
 # ? fichas e legendas
-ficha_v_5 = image.load('assets/ficha vermelha.png')
-ficha_l_10 = image.load('assets/ficha laranja.png')
-ficha_a_20 = image.load('assets/ficha azul.png')
-ficha_allwin = image.load('assets/ficha all win.png')
+ficha_v_5 = image.load('assets/jogo dados/ficha vermelha.png')
+ficha_l_10 = image.load('assets/jogo dados/ficha laranja.png')
+ficha_a_20 = image.load('assets/jogo dados/ficha azul.png')
+ficha_allwin = image.load('assets/jogo dados/ficha all win.png')
 ficha_v_5 = transform.scale(ficha_v_5, (85, 85))
 ficha_l_10 = transform.scale(ficha_l_10, (105, 105))
 ficha_a_20 = transform.scale(ficha_a_20, (125, 125))
