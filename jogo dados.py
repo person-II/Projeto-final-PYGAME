@@ -59,9 +59,9 @@ clock = time.Clock()
 display.set_caption('dado')
 
 # * FONTES
-my_font = font.Font('snail game/fontt/open-sans/OpenSans-Regular.ttf', 30)
-my_font2 = font.Font('snail game/fontt/open-sans/OpenSans-Regular.ttf', 25)
-my_font3 = font.Font('snail game/fontt/open-sans/OpenSans-Regular.ttf', 15)
+my_font = font.Font('fontt/open-sans/OpenSans-Regular.ttf', 30)
+my_font2 = font.Font('fontt/open-sans/OpenSans-Regular.ttf', 25)
+my_font3 = font.Font('fontt/open-sans/OpenSans-Regular.ttf', 15)
 
 # * IMAGENS / SURFACES ...
 # ? jogando dados (seria animação)
@@ -202,7 +202,7 @@ while running:
         if ev.type == MOUSEBUTTONDOWN:
             mouse_pos = mouse.get_pos()
             if enter_button_rect.collidepoint(mouse_pos):
-                with open("snake game/RANKINGS.json") as f:
+                with open("RANKINGS.json") as f:
                     data = json.load(f)
                 if username not in data:
                     done_username = True
