@@ -59,7 +59,6 @@ clock = time.Clock()
 display.set_caption('dado')
 
 # * FONTES
-# mudar path depois
 my_font = font.Font('snail game/fontt/open-sans/OpenSans-Regular.ttf', 30)
 my_font2 = font.Font('snail game/fontt/open-sans/OpenSans-Regular.ttf', 25)
 my_font3 = font.Font('snail game/fontt/open-sans/OpenSans-Regular.ttf', 15)
@@ -171,9 +170,10 @@ def AcessDatabase():
         f.truncate()
         json.dump(data, f, indent=4)
 
-
+# * LOOP JOGO
 running = True
 while running:
+
     for ev in event.get():
         if ev.type == QUIT:
             running = False
@@ -195,7 +195,7 @@ while running:
         if ev.type == MOUSEBUTTONDOWN:
             mouse_pos = mouse.get_pos()
             if enter_button_rect.collidepoint(mouse_pos):
-                with open("RANKINGS.json") as f:
+                with open("snake game/RANKINGS.json") as f:
                     data = json.load(f)
                 if username not in data:
                     done_username = True
@@ -242,7 +242,28 @@ while running:
                     print('\n--------------------------\nTIME VERMELHO')
                     print('> APOSTA:', aposta)
                     cor = 'vermelho'
-    
+
+        if not bet:
+            if ev.type == KEYDOWN and ev.key == K_SPACE:
+                clicou = False
+                Draw = True
+                bet = True
+                placed_bet = False
+                aposta = 0
+                one_time = True
+                done_username = True
+
+    if lost:
+        one_time = True
+        done_username = True
+      
+    if Can_AcessDatabase():
+        AcessDatabase()
+        one_time = False
+
+    if lost:
+        running = False
+
     if type_active:
         colorr = color_active
     else:
@@ -253,33 +274,80 @@ while running:
         color_enter_button = 'Dark Gray'
     else:
         color_enter_button = 'Light Gray'
+
+    # * enter button
     draw.rect(screen, color_enter_button, enter_button_rect, border_radius=10)
     screen.blit(enter_txt, enter_txt_rect)
+
+    # * caixa de texto
     draw.rect(screen, colorr, input_rect, 2)
     text_surf = my_font2.render(username, True, (0, 0, 0))
     screen.blit(text_surf, (input_rect.x + 5, input_rect.y + 8))
     input_rect.w = max(150, text_surf.get_width() + 10)
 
+    # * texto seus pontos
     pontos_txt = my_font.render(f'SEUS PONTOS >> {PONTOS_INICIAIS}', False, 'Red')
     pontos_rect = pontos_txt.get_rect(center=(265, 50))
     screen.blit(pontos_txt, pontos_rect)
     screen.blit(jogando, jogando_rect)
+
+    # * quadrados cores
     draw.rect(screen, 'Blue', rect_az, border_radius=15)
     draw.rect(screen, 'Red', rect_ver, border_radius=15)
 
+    # * fichas e legendas
     screen.blit(ficha_v_5, ficha5_rect)
     screen.blit(ficha_l_10, ficha10_rect)
     screen.blit(ficha_a_20, ficha20_rect)
     screen.blit(ficha_allwin, fichaallwin_rect)
-
     screen.blit(lg_5, (ficha5_rect.x + 35, ficha5_rect.y + 75))
     screen.blit(lg_10, (ficha10_rect.x + 36, ficha10_rect.y + 95))
     screen.blit(lg_20, (ficha20_rect.x + 50, ficha20_rect.y + 110))
     screen.blit(lg_allwin, (fichaallwin_rect.x + 25, fichaallwin_rect.y + 135))
 
+    # * texto aposta
     aposta_txt = my_font.render(f'APOSTA: {aposta}', False, 'Dark Gray')
     aposta_rect = aposta_txt.get_rect(center=(265, 230))
     screen.blit(aposta_txt, aposta_rect)
+
+    if clicou:
+        if Draw:
+            dado_vermelho = jogar_dados()
+            dado_azul = jogar_dados()
+
+            print('> Dado azul:', dado_azul)
+            print('> Dado vermelho:', dado_vermelho)
+            Draw = False
+        
+        if cor == 'vermelho':
+            if dado_vermelho > dado_azul:
+                screen.blit(victory, vic_rect)
+                win = True
+            elif dado_vermelho < dado_azul:
+                screen.blit(defeat, def_rect)
+                win = False
+            else:
+                screen.blit(tie, tie_rect)
+                win = 'tie'
+        elif cor == 'azul':
+            if dado_vermelho > dado_azul:
+                screen.blit(defeat, def_rect)
+                win = False
+            elif dado_vermelho < dado_azul:
+                screen.blit(victory, vic_rect)
+                win = True
+            else:
+                screen.blit(tie, tie_rect)
+                win = 'tie'
+        if bet:
+            betting(aposta, win)
+            bet = False
+
+        if PONTOS_INICIAIS == 0:
+            lost = True
+
+        screen.blit(play_again, again_rect)
+        screen.blit(play_again2, again2_rect)
 
     display.update()
     clock.tick(FPS)
