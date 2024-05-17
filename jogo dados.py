@@ -5,7 +5,7 @@ import json
 
 init()
 
-class DadoAzul():
+class DadoAzul(sprite.Sprite):
     def __init__(self) -> None:
         super().__init__()
 
@@ -27,7 +27,7 @@ class DadoAzul():
             self.index = 0
         self.image = self.frames[int(self.index)]
 
-class DadoVermelho():
+class DadoVermelho(sprite.Sprite):
     def __init__(self) -> None:
         super().__init__()
 
@@ -170,6 +170,13 @@ def AcessDatabase():
         f.truncate()
         json.dump(data, f, indent=4)
 
+
+# * GRUPOS SPRITE
+dado_az = sprite.GroupSingle()
+dado_az.add(DadoAzul())
+dado_ver = sprite.GroupSingle()
+dado_ver.add(DadoVermelho())
+
 # * LOOP JOGO
 running = True
 while running:
@@ -309,6 +316,12 @@ while running:
     aposta_txt = my_font.render(f'APOSTA: {aposta}', False, 'Dark Gray')
     aposta_rect = aposta_txt.get_rect(center=(265, 230))
     screen.blit(aposta_txt, aposta_rect)
+
+    # ! em algum momento e lugar....
+    # dado_az.draw(screen)
+    # dado_az.animation_azul()
+    # dado_ver.draw(screen)
+    # dado_ver.animation_red()
 
     if clicou:
         if Draw:
