@@ -9,37 +9,45 @@ class DadoAzul():
     def __init__(self) -> None:
         super().__init__()
 
-        f1 = image.load('assets/1 az.png')
-        f2 = image.load('assets/2 az.png')
-        f3 = image.load('assets/3 az.png')
-        f4 = image.load('assets/4 az.png')
-        f5 = image.load('assets/5 az.png')
-        f6 = image.load('assets/6 az.png')
+        f1 = image.load('assets/1 az.png').convert_alpha()
+        f2 = image.load('assets/2 az.png').convert_alpha()
+        f3 = image.load('assets/3 az.png').convert_alpha()
+        f4 = image.load('assets/4 az.png').convert_alpha()
+        f5 = image.load('assets/5 az.png').convert_alpha()
+        f6 = image.load('assets/6 az.png').convert_alpha()
 
         self.frames = [f1, f2, f3, f4, f5, f6]
         self.index = 0
         self.image = self.frames[self.index]
+        self.rect = self.image.get_rect(topleft=(200, 230))
 
     def animation_azul(self):
-        pass
+        self.index += 0.1
+        if self.index >= len(self.frames):
+            self.index = 0
+        self.image = self.frames[int(self.index)]
 
 class DadoVermelho():
     def __init__(self) -> None:
         super().__init__()
 
-        f1 = image.load('assets/1 ve.png')
-        f2 = image.load('assets/2 ve.png')
-        f3 = image.load('assets/3 ve.png')
-        f4 = image.load('assets/4 ve.png')
-        f5 = image.load('assets/5 ve.png')
-        f6 = image.load('assets/6 ve.png')
+        f1 = image.load('assets/1 ve.png').convert_alpha()
+        f2 = image.load('assets/2 ve.png').convert_alpha()
+        f3 = image.load('assets/3 ve.png').convert_alpha()
+        f4 = image.load('assets/4 ve.png').convert_alpha()
+        f5 = image.load('assets/5 ve.png').convert_alpha()
+        f6 = image.load('assets/6 ve.png').convert_alpha()
 
         self.frames = [f1, f2, f3, f4, f5, f6]
         self.index = 0
         self.image = self.frames[self.index]
+        self.rect = self.image.get_rect(topleft=(300, 230))
     
     def animation_red(self):
-        pass
+        self.index += 0.1
+        if self.index >= len(self.frames):
+            self.index = 0
+        self.image = self.frames[int(self.index)]
 
 # * CONSTANTES
 TAMANHO = (530, 600)
