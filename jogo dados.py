@@ -26,11 +26,11 @@ class DadoAzul(sprite.Sprite):
         self.index = 0
         self.image = self.frames[self.index]
         self.rect = self.image.get_rect(topleft=(130, y_pos))
-        self.vel = 0.1
+        self.vel = 0.12
 
     def animation_azul(self):
         self.index += self.vel
-        if abs(self.index) >= len(self.frames):
+        if self.index >= len(self.frames):
             self.index = 0
         self.image = self.frames[int(self.index)]
     
@@ -58,11 +58,11 @@ class DadoVermelho(sprite.Sprite):
         self.index = 0
         self.image = self.frames[self.index]
         self.rect = self.image.get_rect(topleft=(285, y_pos))
-        self.vel = 0.1
+        self.vel = 0.12
     
     def animation_red(self):
         self.index += self.vel
-        if abs(self.index) >= len(self.frames):
+        if self.index >= len(self.frames):
             self.index = 0
         self.image = self.frames[int(self.index)]
 
@@ -84,10 +84,6 @@ my_font2 = font.Font('assets/fontt/open-sans/OpenSans-Regular.ttf', 25)
 my_font3 = font.Font('assets/fontt/open-sans/OpenSans-Regular.ttf', 15)
 
 # * IMAGENS / SURFACES ...
-# ? jogando dados (seria animação)
-jogando = my_font.render('jogando dados...', False, 'Black')
-jogando_rect = jogando.get_rect(center=(265, 100))
-
 # ? mendagem derrota vitoria
 victory = my_font.render('VITORIA', False, 'Black')
 defeat = my_font.render('DERROTA', False, 'Black')
@@ -152,7 +148,6 @@ aposta = 0
 one_time = True
 done_username = False
 lost = False
-has_bet = False
 
 # * FUNÇÕES
 def jogar_dados():
@@ -194,8 +189,8 @@ def AcessDatabase():
 def Decrease_vel():
     for ob_az, ob_ver in zip(dado_az_group, dado_ver_group):
         if ob_az.vel > 0:
-            ob_az.vel -= 0.0001
-            ob_ver.vel -= 0.0001
+            ob_az.vel -= 0.0003
+            ob_ver.vel -= 0.0003
 
 # * GRUPOS SPRITE
 dado_az_group = sprite.Group()
@@ -346,7 +341,8 @@ while running:
     screen.blit(aposta_txt, aposta_rect)
 
     # * SPRITE DADOS
-    Decrease_vel()
+    if clicou:
+        Decrease_vel()
     dado_az_group.draw(screen)
     dado_az_group.update()
     dado_ver_group.draw(screen)
@@ -384,7 +380,6 @@ while running:
                 win = 'tie'
         if bet:
             betting(aposta, win)
-            has_bet = True
             bet = False
 
         if PONTOS_INICIAIS == 0:
