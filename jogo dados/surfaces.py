@@ -40,7 +40,7 @@ fichaallwin_rect = ficha_allwin.get_rect(midleft=(330, 400))
 lg_5 = my_font2.render('5', False, 'Black')
 lg_10 = my_font2.render('10', False, 'Black')
 lg_20 = my_font2.render('20', False, 'Black')
-lg_allwin = my_font2.render('ALL WIN', False, 'Black')
+lg_allwin = my_font2.render('ALL IN', False, 'Black')
 
 # ? caixa enter texto
 enter_button = Surface((100, 55))
