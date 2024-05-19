@@ -141,7 +141,7 @@ type_active = False
 # * VARIAVEIS
 PONTOS_INICIAIS = 100
 clicou = False
-bet = True
+can_bet = True
 Draw = True
 placed_bet = False
 aposta = 0
@@ -189,8 +189,8 @@ def AcessDatabase():
 def Decrease_vel():
     for ob_az, ob_ver in zip(dado_az_group, dado_ver_group):
         if ob_az.vel > 0:
-            ob_az.vel -= 0.0003
-            ob_ver.vel -= 0.0003
+            ob_az.vel -= 0.0004
+            ob_ver.vel -= 0.0004
 
 def Reset_animation():
     for ob_az, ob_ver in zip(dado_az_group, dado_ver_group):
@@ -198,6 +198,12 @@ def Reset_animation():
         ob_az.vel = 0.12
         ob_ver.index = 0
         ob_ver.vel = 0.12
+
+def dado_stopped():
+    for ob in dado_az_group:
+        if ob.vel <= 0:
+            return True
+    return False
 
 # * GRUPOS SPRITE
 dado_az_group = sprite.Group()
@@ -280,14 +286,14 @@ while running:
                     print('> APOSTA:', aposta)
                     cor = 'vermelho'
 
-        if not bet:
+        if not can_bet:
+            one_time = True
             if ev.type == KEYDOWN and ev.key == K_SPACE:
                 clicou = False
                 Draw = True
-                bet = True
+                can_bet = True
                 placed_bet = False
                 aposta = 0
-                one_time = True
                 done_username = True
                 has_bet = False
                 Reset_animation()
@@ -366,35 +372,37 @@ while running:
             print('> Dado vermelho:', dado_vermelho)
             Draw = False
         
-        if cor == 'vermelho':
-            if dado_vermelho > dado_azul:
-                screen.blit(victory, vic_rect)
-                win = True
-            elif dado_vermelho < dado_azul:
-                screen.blit(defeat, def_rect)
-                win = False
-            else:
-                screen.blit(tie, tie_rect)
-                win = 'tie'
-        elif cor == 'azul':
-            if dado_vermelho > dado_azul:
-                screen.blit(defeat, def_rect)
-                win = False
-            elif dado_vermelho < dado_azul:
-                screen.blit(victory, vic_rect)
-                win = True
-            else:
-                screen.blit(tie, tie_rect)
-                win = 'tie'
-        if bet:
-            betting(aposta, win)
-            bet = False
+        if dado_stopped():
+            time.wait(2000)
+            if cor == 'vermelho':
+                if dado_vermelho > dado_azul:
+                    screen.blit(victory, vic_rect)
+                    win = True
+                elif dado_vermelho < dado_azul:
+                    screen.blit(defeat, def_rect)
+                    win = False
+                else:
+                    screen.blit(tie, tie_rect)
+                    win = 'tie'
+            elif cor == 'azul':
+                if dado_vermelho > dado_azul:
+                    screen.blit(defeat, def_rect)
+                    win = False
+                elif dado_vermelho < dado_azul:
+                    screen.blit(victory, vic_rect)
+                    win = True
+                else:
+                    screen.blit(tie, tie_rect)
+                    win = 'tie'
+            if can_bet:
+                betting(aposta, win)
+                can_bet = False
 
-        if PONTOS_INICIAIS == 0:
-            lost = True
+            if PONTOS_INICIAIS == 0:
+                lost = True
 
-        screen.blit(play_again, again_rect)
-        screen.blit(play_again2, again2_rect)
+            screen.blit(play_again, again_rect)
+            screen.blit(play_again2, again2_rect)
 
     display.update()
     clock.tick(FPS)
