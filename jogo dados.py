@@ -6,48 +6,66 @@ import json
 init()
 
 class DadoAzul(sprite.Sprite):
-    def __init__(self) -> None:
+    def __init__(self, y_pos) -> None:
         super().__init__()
 
         f1 = image.load('assets/jogo dados/1 az.png').convert_alpha()
+        f1 = transform.scale(f1, (80, 80))
         f2 = image.load('assets/jogo dados/2 az.png').convert_alpha()
+        f2 = transform.scale(f2, (80, 80))
         f3 = image.load('assets/jogo dados/3 az.png').convert_alpha()
+        f3 = transform.scale(f3, (80, 80))
         f4 = image.load('assets/jogo dados/4 az.png').convert_alpha()
+        f4 = transform.scale(f4, (80, 80))
         f5 = image.load('assets/jogo dados/5 az.png').convert_alpha()
+        f5 = transform.scale(f5, (80, 80))
         f6 = image.load('assets/jogo dados/6 az.png').convert_alpha()
+        f6 = transform.scale(f6, (80, 80))
 
         self.frames = [f1, f2, f3, f4, f5, f6]
         self.index = 0
         self.image = self.frames[self.index]
-        self.rect = self.image.get_rect(topleft=(200, 230))
+        self.rect = self.image.get_rect(topleft=(130, y_pos))
 
     def animation_azul(self):
         self.index += 0.1
         if self.index >= len(self.frames):
             self.index = 0
         self.image = self.frames[int(self.index)]
+    
+    def update(self):
+        self.animation_azul()
 
 class DadoVermelho(sprite.Sprite):
-    def __init__(self) -> None:
+    def __init__(self, y_pos) -> None:
         super().__init__()
 
         f1 = image.load('assets/jogo dados/1 ve.png').convert_alpha()
+        f1 = transform.scale(f1, (80, 80))
         f2 = image.load('assets/jogo dados/2 ve.png').convert_alpha()
+        f2 = transform.scale(f2, (80, 80))
         f3 = image.load('assets/jogo dados/3 ve.png').convert_alpha()
+        f3 = transform.scale(f3, (80, 80))
         f4 = image.load('assets/jogo dados/4 ve.png').convert_alpha()
+        f4 = transform.scale(f4, (80, 80))
         f5 = image.load('assets/jogo dados/5 ve.png').convert_alpha()
+        f5 = transform.scale(f5, (80, 80))
         f6 = image.load('assets/jogo dados/6 ve.png').convert_alpha()
+        f6 = transform.scale(f6, (80, 80))
 
         self.frames = [f1, f2, f3, f4, f5, f6]
         self.index = 0
         self.image = self.frames[self.index]
-        self.rect = self.image.get_rect(topleft=(300, 230))
+        self.rect = self.image.get_rect(topleft=(285, y_pos))
     
     def animation_red(self):
         self.index += 0.1
         if self.index >= len(self.frames):
             self.index = 0
         self.image = self.frames[int(self.index)]
+
+    def update(self):
+        self.animation_red()
 
 # * CONSTANTES
 TAMANHO = (530, 600)
@@ -172,10 +190,12 @@ def AcessDatabase():
 
 
 # * GRUPOS SPRITE
-dado_az = sprite.GroupSingle()
-dado_az.add(DadoAzul())
-dado_ver = sprite.GroupSingle()
-dado_ver.add(DadoVermelho())
+dado_az = sprite.Group()
+dado_az.add(DadoAzul(y_pos=60))
+dado_az.add(DadoAzul(y_pos=130))
+dado_ver = sprite.Group()
+dado_ver.add(DadoVermelho(y_pos=60))
+dado_ver.add(DadoVermelho(y_pos=130))
 
 # * LOOP JOGO
 running = True
@@ -294,9 +314,8 @@ while running:
 
     # * texto seus pontos
     pontos_txt = my_font.render(f'SEUS PONTOS >> {PONTOS_INICIAIS}', False, 'Red')
-    pontos_rect = pontos_txt.get_rect(center=(265, 50))
+    pontos_rect = pontos_txt.get_rect(center=(265, 35))
     screen.blit(pontos_txt, pontos_rect)
-    screen.blit(jogando, jogando_rect)
 
     # * quadrados cores
     draw.rect(screen, 'Blue', rect_az, border_radius=15)
@@ -318,10 +337,10 @@ while running:
     screen.blit(aposta_txt, aposta_rect)
 
     # ! em algum momento e lugar....
-    # dado_az.draw(screen)
-    # dado_az.animation_azul()
-    # dado_ver.draw(screen)
-    # dado_ver.animation_red()
+    dado_az.draw(screen)
+    dado_az.update()
+    dado_ver.draw(screen)
+    dado_ver.update()
 
     if clicou:
         if Draw:
