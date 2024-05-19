@@ -1,5 +1,7 @@
 from pygame import *
 
+init()
+
 # * CONSTANTES
 # VALORES
 TAMANHO = (530, 600)
