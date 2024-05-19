@@ -1,5 +1,4 @@
 from pygame import *
-import pygame
 
 # * CONSTANTES
 # VALORES
