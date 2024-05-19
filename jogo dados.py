@@ -8,6 +8,7 @@ init()
 class DadoAzul(sprite.Sprite):
     def __init__(self, y_pos) -> None:
         super().__init__()
+        global f1, f2, f3, f4, f5, f6
 
         f1 = image.load('assets/jogo dados/1 az.png').convert_alpha()
         f1 = transform.scale(f1, (80, 80))
@@ -36,6 +37,22 @@ class DadoAzul(sprite.Sprite):
     
     def update(self):
         self.animation_azul()
+
+    def FaceValue(self):
+        value = 0
+        if self.image == f1:
+            value = 1
+        if self.image == f2:
+            value = 2
+        if self.image == f3:
+            value = 3
+        if self.image == f4:
+            value = 4
+        if self.image == f5:
+            value = 5
+        if self.image == f6:
+            value = 6
+        return value
 
 class DadoVermelho(sprite.Sprite):
     def __init__(self, y_pos) -> None:
@@ -68,6 +85,22 @@ class DadoVermelho(sprite.Sprite):
 
     def update(self):
         self.animation_red()
+    
+    def FaceValue(self):
+        value = 0
+        if self.image == f1:
+            value = 1
+        if self.image == f2:
+            value = 2
+        if self.image == f3:
+            value = 3
+        if self.image == f4:
+            value = 4
+        if self.image == f5:
+            value = 5
+        if self.image == f6:
+            value = 6
+        return value
 
 # * CONSTANTES
 TAMANHO = (530, 600)
