@@ -373,7 +373,7 @@ while running:
             Draw = False
         
         if dado_stopped():
-            time.wait(2000)
+            time.wait(1500)
             if cor == 'vermelho':
                 if dado_vermelho > dado_azul:
                     screen.blit(victory, vic_rect)
