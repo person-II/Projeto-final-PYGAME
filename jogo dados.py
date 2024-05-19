@@ -1,6 +1,6 @@
 from pygame import *
 import pygame
-from random import randint, choice
+from random import choice
 import json
 
 init()
