@@ -244,7 +244,7 @@ while running:
     screen.blit(lg_5, (ficha5_rect.x + 35, ficha5_rect.y + 75))
     screen.blit(lg_10, (ficha10_rect.x + 36, ficha10_rect.y + 95))
     screen.blit(lg_20, (ficha20_rect.x + 50, ficha20_rect.y + 110))
-    screen.blit(lg_allwin, (fichaallwin_rect.x + 25, fichaallwin_rect.y + 135))
+    screen.blit(lg_allwin, (fichaallwin_rect.x + 38, fichaallwin_rect.y + 135))
 
     # * texto aposta
     aposta_txt = my_font.render(f'APOSTA: {aposta}', False, 'Dark Gray')
