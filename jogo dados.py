@@ -5,6 +5,7 @@ import json
 
 init()
 
+# * CLASSES SPRITES
 class DadoAzul(sprite.Sprite):
     def __init__(self, y_pos) -> None:
         super().__init__()
@@ -69,30 +70,8 @@ class DadoVermelho(sprite.Sprite):
     def update(self):
         self.animation_red()
 
-
-def jogar_dados2():
-    for ob, ob2 in zip(dado_az_group, dado_ver_group):
-        ob.image = choice(ob.frames)
-        ob2.image = choice(ob2.frames)
-
-def FaceValue(group):
-    values = []
-    for ob in group:
-        if ob.image == ob.frames[0]:
-            value = 1
-        if ob.image == ob.frames[1]:
-            value = 2
-        if ob.image == ob.frames[2]:
-            value = 3
-        if ob.image == ob.frames[3]:
-            value = 4
-        if ob.image == ob.frames[4]:
-            value = 5
-        if ob.image == ob.frames[5]:
-            value = 6
-        values.append(value)
-
-    return values[0], values[1]
+''' ----------------------------------------------------------------------------------------
+'''
 
 # * CONSTANTES
 TAMANHO = (530, 600)
@@ -107,6 +86,9 @@ display.set_caption('dado')
 my_font = font.Font('assets/fontt/open-sans/OpenSans-Regular.ttf', 30)
 my_font2 = font.Font('assets/fontt/open-sans/OpenSans-Regular.ttf', 25)
 my_font3 = font.Font('assets/fontt/open-sans/OpenSans-Regular.ttf', 15)
+
+''' ----------------------------------------------------------------------------------------
+'''
 
 # * IMAGENS / SURFACES ...
 # ? mendagem derrota vitoria
@@ -163,6 +145,9 @@ color_passive = Color('lightskyblue3')
 colorr = color_passive
 type_active = False
 
+''' -----------------------------------------------------------------------------------------------
+'''
+
 # * VARIAVEIS
 PONTOS_INICIAIS = 100
 clicou = False
@@ -174,9 +159,41 @@ one_time = True
 done_username = False
 lost = False
 
+# * GRUPOS SPRITE
+dado_az_group = sprite.Group()
+dado_az_group.add(DadoAzul(y_pos=60))
+dado_az_group.add(DadoAzul(y_pos=130))
+dado_ver_group = sprite.Group()
+dado_ver_group.add(DadoVermelho(y_pos=60))
+dado_ver_group.add(DadoVermelho(y_pos=130))
+
+''' --------------------------------------------------------------------------------------
+'''
+
 # * FUNÇÕES
-def jogar_dados():
-    return randint(1, 6)
+def jogar_dados2():
+    for ob, ob2 in zip(dado_az_group, dado_ver_group):
+        ob.image = choice(ob.frames)
+        ob2.image = choice(ob2.frames)
+
+def FaceValue(group):
+    values = []
+    for ob in group:
+        if ob.image == ob.frames[0]:
+            value = 1
+        if ob.image == ob.frames[1]:
+            value = 2
+        if ob.image == ob.frames[2]:
+            value = 3
+        if ob.image == ob.frames[3]:
+            value = 4
+        if ob.image == ob.frames[4]:
+            value = 5
+        if ob.image == ob.frames[5]:
+            value = 6
+        values.append(value)
+
+    return values[0], values[1]
 
 def betting(aposta, win):
     global PONTOS_INICIAIS
@@ -241,13 +258,8 @@ def winning_side(value1_az, value2_az, value1_ver, value2_ver):
     else:
         return 'tie'
 
-# * GRUPOS SPRITE
-dado_az_group = sprite.Group()
-dado_az_group.add(DadoAzul(y_pos=60))
-dado_az_group.add(DadoAzul(y_pos=130))
-dado_ver_group = sprite.Group()
-dado_ver_group.add(DadoVermelho(y_pos=60))
-dado_ver_group.add(DadoVermelho(y_pos=130))
+''' -------------------------------------------------------------------------------------------
+'''
 
 # * LOOP JOGO
 running = True
@@ -417,7 +429,6 @@ while running:
 
                 Draw = False
         
-            # time.wait(1000)
             WinningSide = winning_side(value1_az, value2_az, value1_ver, value2_ver)
             if cor == 'vermelho':
                 if WinningSide == 'vermelho':
