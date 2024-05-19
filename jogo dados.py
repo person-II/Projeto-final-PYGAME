@@ -1,6 +1,6 @@
 from pygame import *
 import pygame
-from random import randint
+from random import randint, choice
 import json
 
 init()
@@ -8,7 +8,6 @@ init()
 class DadoAzul(sprite.Sprite):
     def __init__(self, y_pos) -> None:
         super().__init__()
-        global f1, f2, f3, f4, f5, f6
 
         f1 = image.load('assets/jogo dados/1 az.png').convert_alpha()
         f1 = transform.scale(f1, (80, 80))
@@ -37,22 +36,6 @@ class DadoAzul(sprite.Sprite):
     
     def update(self):
         self.animation_azul()
-
-    def FaceValue(self):
-        value = 0
-        if self.image == f1:
-            value = 1
-        if self.image == f2:
-            value = 2
-        if self.image == f3:
-            value = 3
-        if self.image == f4:
-            value = 4
-        if self.image == f5:
-            value = 5
-        if self.image == f6:
-            value = 6
-        return value
 
 class DadoVermelho(sprite.Sprite):
     def __init__(self, y_pos) -> None:
@@ -85,22 +68,31 @@ class DadoVermelho(sprite.Sprite):
 
     def update(self):
         self.animation_red()
-    
-    def FaceValue(self):
-        value = 0
-        if self.image == f1:
+
+
+def jogar_dados2():
+    for ob, ob2 in zip(dado_az_group, dado_ver_group):
+        ob.image = choice(ob.frames)
+        ob2.image = choice(ob2.frames)
+
+def FaceValue(group):
+    values = []
+    for ob in group:
+        if ob.image == ob.frames[0]:
             value = 1
-        if self.image == f2:
+        if ob.image == ob.frames[1]:
             value = 2
-        if self.image == f3:
+        if ob.image == ob.frames[2]:
             value = 3
-        if self.image == f4:
+        if ob.image == ob.frames[3]:
             value = 4
-        if self.image == f5:
+        if ob.image == ob.frames[4]:
             value = 5
-        if self.image == f6:
+        if ob.image == ob.frames[5]:
             value = 6
-        return value
+        values.append(value)
+
+    return values[0], values[1]
 
 # * CONSTANTES
 TAMANHO = (530, 600)
@@ -234,9 +226,20 @@ def Reset_animation():
 
 def dado_stopped():
     for ob in dado_az_group:
-        if ob.vel <= 0:
+        if ob.vel <= 0.05:
             return True
     return False
+
+def winning_side(value1_az, value2_az, value1_ver, value2_ver):
+    sum_az = value1_az + value2_az
+    sum_ver = value1_ver + value2_ver
+
+    if sum_az > sum_ver:
+        return 'azul'
+    elif sum_az < sum_ver:
+        return  'vermelho'
+    else:
+        return 'tie'
 
 # * GRUPOS SPRITE
 dado_az_group = sprite.Group()
@@ -252,6 +255,8 @@ while running:
 
     for ev in event.get():
         if ev.type == QUIT:
+            running = False
+        elif ev.type == KEYDOWN and ev.key == K_ESCAPE:
             running = False
         
         if ev.type == MOUSEBUTTONDOWN:
@@ -309,14 +314,10 @@ while running:
             if placed_bet:
                 if rect_az.collidepoint(mouse_pos):
                     clicou = True
-                    print('\n--------------------------\nTIME AZUL')
-                    print('> APOSTA:', aposta)
                     cor = 'azul'
 
                 elif rect_ver.collidepoint(mouse_pos):
                     clicou = True
-                    print('\n--------------------------\nTIME VERMELHO')
-                    print('> APOSTA:', aposta)
                     cor = 'vermelho'
 
         if not can_bet:
@@ -388,40 +389,51 @@ while running:
     screen.blit(aposta_txt, aposta_rect)
 
     # * SPRITE DADOS
-    if clicou:
+    if clicou and can_bet:
         Decrease_vel()
     dado_az_group.draw(screen)
-    dado_az_group.update()
     dado_ver_group.draw(screen)
-    dado_ver_group.update()
+    if not dado_stopped():
+        dado_az_group.update()
+        dado_ver_group.update()
 
     # * JOGO / APOSTA
     if clicou:
-        if Draw:
-            dado_vermelho = jogar_dados()
-            dado_azul = jogar_dados()
-
-            print('> Dado azul:', dado_azul)
-            print('> Dado vermelho:', dado_vermelho)
-            Draw = False
-        
         if dado_stopped():
-            time.wait(1500)
+            if Draw:
+                jogar_dados2()
+                time.wait(400)
+                
+                value1_az, value2_az = FaceValue(dado_az_group)
+                value1_ver, value2_ver = FaceValue(dado_ver_group)
+                print('--------------------------')
+                print('LADO = ', cor)
+                print('value 1 azul =', value1_az)
+                print('value 2 azul =', value2_az)
+                print('soma azul =', value1_az + value2_az)
+                print('value 1 vermelho =', value1_ver)
+                print('value 2 vermelho =', value2_ver)
+                print('soma vermelho =', value1_ver + value2_ver)
+
+                Draw = False
+        
+            # time.wait(1000)
+            WinningSide = winning_side(value1_az, value2_az, value1_ver, value2_ver)
             if cor == 'vermelho':
-                if dado_vermelho > dado_azul:
+                if WinningSide == 'vermelho':
                     screen.blit(victory, vic_rect)
                     win = True
-                elif dado_vermelho < dado_azul:
+                elif WinningSide == 'azul':
                     screen.blit(defeat, def_rect)
                     win = False
                 else:
                     screen.blit(tie, tie_rect)
                     win = 'tie'
             elif cor == 'azul':
-                if dado_vermelho > dado_azul:
+                if WinningSide == 'vermelho':
                     screen.blit(defeat, def_rect)
                     win = False
-                elif dado_vermelho < dado_azul:
+                elif WinningSide == 'azul':
                     screen.blit(victory, vic_rect)
                     win = True
                 else:
