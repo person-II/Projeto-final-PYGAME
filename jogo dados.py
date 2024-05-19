@@ -192,6 +192,13 @@ def Decrease_vel():
             ob_az.vel -= 0.0003
             ob_ver.vel -= 0.0003
 
+def Reset_animation():
+    for ob_az, ob_ver in zip(dado_az_group, dado_ver_group):
+        ob_az.index = 0
+        ob_az.vel = 0.12
+        ob_ver.index = 0
+        ob_ver.vel = 0.12
+
 # * GRUPOS SPRITE
 dado_az_group = sprite.Group()
 dado_az_group.add(DadoAzul(y_pos=60))
@@ -283,6 +290,7 @@ while running:
                 one_time = True
                 done_username = True
                 has_bet = False
+                Reset_animation()
 
     if lost:
         one_time = True
