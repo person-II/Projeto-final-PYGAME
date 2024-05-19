@@ -26,10 +26,11 @@ class DadoAzul(sprite.Sprite):
         self.index = 0
         self.image = self.frames[self.index]
         self.rect = self.image.get_rect(topleft=(130, y_pos))
+        self.vel = 0.1
 
     def animation_azul(self):
-        self.index += 0.1
-        if self.index >= len(self.frames):
+        self.index += self.vel
+        if abs(self.index) >= len(self.frames):
             self.index = 0
         self.image = self.frames[int(self.index)]
     
@@ -57,10 +58,11 @@ class DadoVermelho(sprite.Sprite):
         self.index = 0
         self.image = self.frames[self.index]
         self.rect = self.image.get_rect(topleft=(285, y_pos))
+        self.vel = 0.1
     
     def animation_red(self):
-        self.index += 0.1
-        if self.index >= len(self.frames):
+        self.index += self.vel
+        if abs(self.index) >= len(self.frames):
             self.index = 0
         self.image = self.frames[int(self.index)]
 
@@ -150,6 +152,7 @@ aposta = 0
 one_time = True
 done_username = False
 lost = False
+has_bet = False
 
 # * FUNÇÕES
 def jogar_dados():
@@ -188,14 +191,19 @@ def AcessDatabase():
         f.truncate()
         json.dump(data, f, indent=4)
 
+def Decrease_vel():
+    for ob_az, ob_ver in zip(dado_az_group, dado_ver_group):
+        if ob_az.vel > 0:
+            ob_az.vel -= 0.0001
+            ob_ver.vel -= 0.0001
 
 # * GRUPOS SPRITE
-dado_az = sprite.Group()
-dado_az.add(DadoAzul(y_pos=60))
-dado_az.add(DadoAzul(y_pos=130))
-dado_ver = sprite.Group()
-dado_ver.add(DadoVermelho(y_pos=60))
-dado_ver.add(DadoVermelho(y_pos=130))
+dado_az_group = sprite.Group()
+dado_az_group.add(DadoAzul(y_pos=60))
+dado_az_group.add(DadoAzul(y_pos=130))
+dado_ver_group = sprite.Group()
+dado_ver_group.add(DadoVermelho(y_pos=60))
+dado_ver_group.add(DadoVermelho(y_pos=130))
 
 # * LOOP JOGO
 running = True
@@ -279,6 +287,7 @@ while running:
                 aposta = 0
                 one_time = True
                 done_username = True
+                has_bet = False
 
     if lost:
         one_time = True
@@ -336,12 +345,14 @@ while running:
     aposta_rect = aposta_txt.get_rect(center=(265, 230))
     screen.blit(aposta_txt, aposta_rect)
 
-    # ! em algum momento e lugar....
-    dado_az.draw(screen)
-    dado_az.update()
-    dado_ver.draw(screen)
-    dado_ver.update()
+    # * SPRITE DADOS
+    Decrease_vel()
+    dado_az_group.draw(screen)
+    dado_az_group.update()
+    dado_ver_group.draw(screen)
+    dado_ver_group.update()
 
+    # * JOGO / APOSTA
     if clicou:
         if Draw:
             dado_vermelho = jogar_dados()
@@ -373,6 +384,7 @@ while running:
                 win = 'tie'
         if bet:
             betting(aposta, win)
+            has_bet = True
             bet = False
 
         if PONTOS_INICIAIS == 0:
