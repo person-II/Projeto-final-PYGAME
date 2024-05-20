@@ -152,7 +152,6 @@ def rodar_jogo():
             if pixel == [x, y]:
                 fim_jogo = True
                 
-
         desenhar_cobra(tamanho_quadrado_cobra, pixels)
 
         # desenhar_pontos
@@ -171,6 +170,10 @@ def rodar_jogo():
 
         if fim_jogo:
             tela_fim(tamanho_cobra - 1)
-
+            # tela davi - intermediaria
+            # if sair:
+            # tela ranking (saida)
+            # else apostar:
+            # jogo dado back bo
 
 rodar_jogo()
