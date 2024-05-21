@@ -112,6 +112,10 @@ def winning_side(value1_az, value2_az, value1_ver, value2_ver):
 ''' -------------------------------------------------------------------------------------------
 '''
 
+surf = Surface((530, 600))
+
+
+
 # * LOOP JOGO
 running = True
 while running:
@@ -211,7 +215,11 @@ while running:
     else:
         colorr = color_passive
     
-    screen.fill((94, 129, 162))
+    fundo_verde = Surface((530, 600))
+    fundo_verde.fill((65,152,10))
+    fundo_verde.set_alpha(90)
+    screen.blit(fundo_verde, (0,0))
+    
     if done_username:
         color_enter_button = 'Dark Gray'
     else:
@@ -228,7 +236,7 @@ while running:
     input_rect.w = max(150, text_surf.get_width() + 10)
 
     # * texto seus pontos
-    pontos_txt = my_font.render(f'SEUS PONTOS >> {PONTOS_INICIAIS}', False, 'Red')
+    pontos_txt = my_font.render(f'SEUS PONTOS >> {PONTOS_INICIAIS}', False, 'White')
     pontos_rect = pontos_txt.get_rect(center=(265, 35))
     screen.blit(pontos_txt, pontos_rect)
 
@@ -247,7 +255,7 @@ while running:
     screen.blit(lg_allwin, (fichaallwin_rect.x + 38, fichaallwin_rect.y + 135))
 
     # * texto aposta
-    aposta_txt = my_font.render(f'APOSTA: {aposta}', False, 'Dark Gray')
+    aposta_txt = my_font.render(f'APOSTA: {aposta}', False, 'White')
     aposta_rect = aposta_txt.get_rect(center=(265, 230))
     screen.blit(aposta_txt, aposta_rect)
 
@@ -284,9 +292,15 @@ while running:
             if cor == 'vermelho':
                 if WinningSide == 'vermelho':
                     screen.blit(victory, vic_rect)
+                    surf.fill('Red')
+                    surf.set_alpha(90)
+                    screen.blit(surf, (0,0))
                     win = True
                 elif WinningSide == 'azul':
                     screen.blit(defeat, def_rect)
+                    surf.fill('#5657FF')
+                    surf.set_alpha(90)
+                    screen.blit(surf, (0,0))
                     win = False
                 else:
                     screen.blit(tie, tie_rect)
@@ -294,9 +308,15 @@ while running:
             elif cor == 'azul':
                 if WinningSide == 'vermelho':
                     screen.blit(defeat, def_rect)
+                    surf.fill('Red')
+                    surf.set_alpha(90)
+                    screen.blit(surf, (0,0))
                     win = False
                 elif WinningSide == 'azul':
                     screen.blit(victory, vic_rect)
+                    surf.fill('#5657FF')
+                    surf.set_alpha(90)
+                    screen.blit(surf, (0,0))
                     win = True
                 else:
                     screen.blit(tie, tie_rect)
