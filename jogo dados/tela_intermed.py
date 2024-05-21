@@ -46,9 +46,9 @@ while rodando:
             if pygame.mouse.get_pressed()[0]:
                 mouse_pos = pygame.mouse.get_pos()
                 if botao_verde_rect.collidepoint(mouse_pos):
-                    print('colisao azul')
+                    print('colisao apostar')
                 elif botao_vermelho_rect.collidepoint(mouse_pos):
-                    print('colisao vermelho')
+                    print('colisao sair')
 
     screen.fill('White')
 
