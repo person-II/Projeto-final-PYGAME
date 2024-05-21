@@ -1,28 +1,27 @@
 import pygame
-from pygame.locals import *
 from pygame import *
 
-pygame.init()
+init()
 
 TAMANHO = (1000, 800)
-screen = pygame.display.set_mode(TAMANHO)
+screen = display.set_mode(TAMANHO)
 FPS = 60
-clock = pygame.time.Clock()
+clock = time.Clock()
 
-fundo = pygame.image.load('assets/fundo.webp')
-fundo = pygame.transform.scale(fundo, TAMANHO)
+fundo = image.load('assets/fundo.webp')
+fundo = transform.scale(fundo, TAMANHO)
 
-botao_verde = pygame.image.load('assets/botao_verde.png')
-botao_verde = pygame.transform.scale(botao_verde, (250, 250))
+botao_verde = image.load('assets/botao_verde.png')
+botao_verde = transform.scale(botao_verde, (250, 250))
 botao_verde_rect = botao_verde.get_rect(topright=(800, 550))
 
-botao_vermelho = pygame.image.load('assets/botao_vermelho.png')
-botao_vermelho = pygame.transform.scale(botao_vermelho, (250, 250))
+botao_vermelho = image.load('assets/botao_vermelho.png')
+botao_vermelho = transform.scale(botao_vermelho, (250, 250))
 botao_vermelho_rect = botao_vermelho.get_rect(topleft=(200, 550))
 
-fonte = pygame.font.Font('assets/fontt/fight-night-font/FightNight-w9V3.ttf', 35)
-fonte2 = pygame.font.Font('assets/fontt/fight-night-font/FightNight-w9V3.ttf', 30)
-fonte_titulo = pygame.font.Font('assets/fontt/casino-font/GrandcasinoRegular-mLExx.otf', 80)
+fonte = font.Font('assets/fontt/fight-night-font/FightNight-w9V3.ttf', 35)
+fonte2 = font.Font('assets/fontt/fight-night-font/FightNight-w9V3.ttf', 30)
+fonte_titulo = font.Font('assets/fontt/casino-font/GrandcasinoRegular-mLExx.otf', 80)
 
 titulo1 = fonte_titulo.render('Voce deseja', True, 'Black')
 titulo2 = fonte_titulo.render('apostar seus pontos ?', True, 'Black')
@@ -38,13 +37,13 @@ texto_verde_rect = texto_verde.get_rect(center=(botao_verde_rect.center[0] - 4, 
 
 rodando = True
 while rodando:
-    for ev in pygame.event.get():
+    for ev in event.get():
         if ev.type == QUIT:
             rodando = False
         
         if ev.type == MOUSEBUTTONDOWN:
-            if pygame.mouse.get_pressed()[0]:
-                mouse_pos = pygame.mouse.get_pos()
+            if mouse.get_pressed()[0]:
+                mouse_pos = mouse.get_pos()
                 if botao_verde_rect.collidepoint(mouse_pos):
                     print('colisao apostar')
                 elif botao_vermelho_rect.collidepoint(mouse_pos):
@@ -62,7 +61,7 @@ while rodando:
     screen.blit(texto_verde, texto_verde_rect)
     screen.blit(texto_vermelho, texto_vermelho_rect)
 
-    pygame.display.update()
+    display.update()
     clock.tick(FPS)
 
 pygame.quit()
