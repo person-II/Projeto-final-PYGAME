@@ -214,17 +214,18 @@ while running:
         colorr = color_active
     else:
         colorr = color_passive
-    
-    fundo_verde = Surface((530, 600))
-    fundo_verde.fill((65,152,10))
-    fundo_verde.set_alpha(90)
-    screen.blit(fundo_verde, (0,0))
-    
+
     if done_username:
         color_enter_button = 'Dark Gray'
     else:
         color_enter_button = 'Light Gray'
 
+    # * fundo
+    fundo_verde = Surface((530, 600))
+    fundo_verde.fill((65,152,10))
+    fundo_verde.set_alpha(90)
+    screen.blit(fundo_verde, (0,0))
+    
     # * enter button
     draw.rect(screen, color_enter_button, enter_button_rect, border_radius=10)
     screen.blit(enter_txt, enter_txt_rect)
@@ -241,8 +242,19 @@ while running:
     screen.blit(pontos_txt, pontos_rect)
 
     # * quadrados cores
-    draw.rect(screen, 'Blue', rect_az, border_radius=15)
-    draw.rect(screen, 'Red', rect_ver, border_radius=15)
+    if clicou:
+        temp_surf = Surface(TAMANHO, SRCALPHA)
+        draw.rect(temp_surf, (0, 0, 255, 20), rect_az, border_radius=15)
+        screen.blit(temp_surf, (0,0))
+        draw.rect(temp_surf, (255, 0, 0, 50), rect_ver, border_radius=15)
+        screen.blit(temp_surf, (0,0))
+        if cor == 'vermelho':
+            draw.rect(screen, 'Red', rect_ver, border_radius=15, width=3)
+        else:
+            draw.rect(screen, 'Blue', rect_az, border_radius=15, width=3)
+    else:
+        draw.rect(screen, 'Blue', rect_az, border_radius=15)
+        draw.rect(screen, 'Red', rect_ver, border_radius=15)
 
     # * fichas e legendas
     screen.blit(ficha_v_5, ficha5_rect)

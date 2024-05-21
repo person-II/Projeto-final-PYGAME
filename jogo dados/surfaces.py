@@ -11,12 +11,10 @@ def_rect = defeat.get_rect(center=(265, 150))
 tie_rect = tie.get_rect(center=(265, 150))
 
 # ? quadrado escolha cor
-rect_ver = Surface((100, 65))
-rect_ver.fill('Red')
-rect_ver = rect_ver.get_rect(topleft=(275, 270))
-rect_az = Surface((100, 65))
-rect_az.fill('Blue')
-rect_az = rect_az.get_rect(topleft=(125, 270))
+rect_ver_surf = Surface((100, 65))
+rect_az_surf = Surface((100, 65))
+rect_ver = rect_ver_surf.get_rect(topleft=(275, 270))
+rect_az = rect_az_surf.get_rect(topleft=(125, 270))
 
 # ? espaço para play again
 play_again = my_font2.render('pressione espaço para', False, 'Black')
