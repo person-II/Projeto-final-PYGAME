@@ -25,7 +25,7 @@ fonte2 = pygame.font.Font('assets/fontt/fight-night-font/FightNight-w9V3.ttf', 3
 fonte_titulo = pygame.font.Font('assets/fontt/casino-font/GrandcasinoRegular-mLExx.otf', 80)
 
 titulo1 = fonte_titulo.render('Voce deseja', True, 'Black')
-titulo2 = fonte_titulo.render('apostar seus pontos?', True, 'Black')
+titulo2 = fonte_titulo.render('apostar seus pontos ?', True, 'Black')
 
 texto_verde = fonte2.render('APOSTAR', True, 'Black')
 texto_vermelho = fonte.render('SAIR', True, 'Black')
