@@ -20,16 +20,18 @@ botao_vermelho = pygame.image.load('assets/botao_vermelho.png')
 botao_vermelho = pygame.transform.scale(botao_vermelho, (250, 250))
 botao_vermelho_rect = botao_vermelho.get_rect(topright=(800, 550))
 
-fonte = pygame.font.Font('assets/fontt/Pixeltype.ttf', 45)
+fonte = pygame.font.Font('assets/fontt/fight-night-font/FightNight-w9V3.ttf', 35)
 fonte_titulo = pygame.font.Font('assets/fontt/casino-font/GrandcasinoRegular-mLExx.otf', 80)
 
 titulo1 = fonte_titulo.render('Voce deseja', True, (0, 0, 0))
 titulo2 = fonte_titulo.render('apostar seus pontos?', True, (0, 0, 0))
-texto_verde = fonte.render('apostar', True, (0, 0, 0))
-texto_vermelho = fonte.render('sair', True, (0, 0, 0))
+
+texto_verde = fonte.render('APOSTAR', True, (0, 0, 0))
+texto_vermelho = fonte.render('SAIR', True, (0, 0, 0))
 
 titulo_rect1 = titulo1.get_rect(center=(TAMANHO[0] // 2, 50))
 titulo_rect2 = titulo2.get_rect(center=(TAMANHO[0] // 2, 150))
+
 texto_verde_rect = texto_verde.get_rect(center=botao_verde_rect.center)
 texto_vermelho_rect = texto_vermelho.get_rect(center=botao_vermelho_rect.center)
 
