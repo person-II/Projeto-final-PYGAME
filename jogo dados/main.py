@@ -221,7 +221,7 @@ while running:
         color_enter_button = 'Light Gray'
 
     # * fundo
-    fundo_verde = Surface((530, 600))
+    fundo_verde = Surface((600, 600))
     fundo_verde.fill((65,152,10))
     fundo_verde.set_alpha(90)
     screen.blit(fundo_verde, (0,0))
@@ -238,7 +238,7 @@ while running:
 
     # * texto seus pontos
     pontos_txt = my_font.render(f'SEUS PONTOS >> {PONTOS_INICIAIS}', False, 'White')
-    pontos_rect = pontos_txt.get_rect(center=(265, 35))
+    pontos_rect = pontos_txt.get_rect(center=(300, 35))
     screen.blit(pontos_txt, pontos_rect)
 
     # * quadrados cores
@@ -268,7 +268,7 @@ while running:
 
     # * texto aposta
     aposta_txt = my_font.render(f'APOSTA: {aposta}', False, 'White')
-    aposta_rect = aposta_txt.get_rect(center=(265, 230))
+    aposta_rect = aposta_txt.get_rect(center=(300, 230))
     screen.blit(aposta_txt, aposta_rect)
 
     # * SPRITE DADOS

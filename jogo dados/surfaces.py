@@ -6,14 +6,14 @@ from constantes import *
 victory = my_font.render('VITORIA', False, 'Black')
 defeat = my_font.render('DERROTA', False, 'Black')
 tie = my_font.render('EMPATE', False, 'Black')
-vic_rect = victory.get_rect(center=(265, 150))
-def_rect = defeat.get_rect(center=(265, 150))
-tie_rect = tie.get_rect(center=(265, 150))
+vic_rect = victory.get_rect(center=(300, 150))
+def_rect = defeat.get_rect(center=(300, 150))
+tie_rect = tie.get_rect(center=(300, 150))
 
 # ? quadrado escolha cor
 rect_ver_surf = Surface((100, 65))
 rect_az_surf = Surface((100, 65))
-rect_ver = rect_ver_surf.get_rect(topleft=(275, 270))
+rect_ver = rect_ver_surf.get_rect(topleft=(345, 270))
 rect_az = rect_az_surf.get_rect(topleft=(125, 270))
 
 # ? espaço para play again

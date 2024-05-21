@@ -54,7 +54,7 @@ class DadoVermelho(sprite.Sprite):
         self.frames = [f1, f2, f3, f4, f5, f6]
         self.index = 0
         self.image = self.frames[self.index]
-        self.rect = self.image.get_rect(topleft=(285, y_pos))
+        self.rect = self.image.get_rect(topleft=(355, y_pos))
         self.vel = 0.12
     
     def animation_red(self):
