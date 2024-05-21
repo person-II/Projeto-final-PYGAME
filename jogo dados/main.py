@@ -112,10 +112,6 @@ def winning_side(value1_az, value2_az, value1_ver, value2_ver):
 ''' -------------------------------------------------------------------------------------------
 '''
 
-surf = Surface((530, 600))
-
-
-
 # * LOOP JOGO
 running = True
 while running:
@@ -189,7 +185,7 @@ while running:
 
         if not can_bet:
             one_time = True
-            if ev.type == KEYDOWN and ev.key == K_SPACE:
+            if ev.type == KEYDOWN or ev.type == MOUSEBUTTONDOWN:
                 clicou = False
                 Draw = True
                 can_bet = True

@@ -2,13 +2,15 @@ from constantes import *
 
 # * IMAGENS / SURFACES ..
 
+surf = Surface(TAMANHO)
+
 # ? mendagem derrota vitoria
 victory = my_font.render('VITORIA', False, 'Black')
 defeat = my_font.render('DERROTA', False, 'Black')
 tie = my_font.render('EMPATE', False, 'Black')
-vic_rect = victory.get_rect(center=(300, 150))
-def_rect = defeat.get_rect(center=(300, 150))
-tie_rect = tie.get_rect(center=(300, 150))
+vic_rect = victory.get_rect(center=(280, 150))
+def_rect = defeat.get_rect(center=(280, 150))
+tie_rect = tie.get_rect(center=(280, 150))
 
 # ? quadrado escolha cor
 rect_ver_surf = Surface((100, 65))
