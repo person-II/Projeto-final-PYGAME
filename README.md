@@ -10,9 +10,9 @@ membros:
 Explicações de como jogar o jogo:
   Ao clicar para rodar o código, aparecerá uma tela de login para colocar seu nome e os seus pontos serem guardados num arquivo .json . Após isso, aparecerá o jogo da cobrinha. Para controlar a cobrinha, podem ser usadas as setas ou WASD. Lembre-se que a cobrinha não pode mudar de direção oposta, pois senão bate nela mesma, inclusive quando ela é apenas um bloco. O objetivo é coletar as bitcoins que serão os pontos que poderão ser apostados posteriormente. Cada bitcoin vale 10 pontos e a cada moeda coletada, o corpo da cobrinha cresce 1 bloco e sua velocidade aumenta. Para perder, o jogador faz a cobrinha bater no prórpio corpo ou faz ela bater nas bordas da tela.
   Ao perder, é mostrado quantos pontos o jogador possui. Agora, o jogador tem a opção de apostar seus pontos.
-  A aposta é feita da seguinte maneira: Serão rodados 4 dados, 2 vermelhos e 2 azuis. Antes disso, o jogador deve escolher uma cor - azul ou vermelho - e a quantidade de pontos que quer apostar. Ganha os dados da mesma cor com maior soma. Se o jogador acertar, ele ganha o dobro do que apostou, considerando que os pontos são retirados quando são apostados. Se errar, perde os pontos que apostou. O jogador pode parar quando quiser, clicando para fechar a janela.
+  A aposta é feita da seguinte maneira: Serão rodados 4 dados, 2 vermelhos e 2 azuis. Antes disso, o jogador deve escolher uma cor - azul ou vermelho ou verde(para empate)- e a quantidade de pontos que quer apostar. Ganha os dados da mesma cor com maior soma. Se o jogador acertar, ele ganha o dobro do que apostou, considerando que os pontos são retirados quando são apostados. Se errar, perde os pontos que apostou.Caso o jogador acerte que a partida empatará, sua aposta será multiplicada por 8x. O jogador pode parar quando quiser, clicando para fechar a janela.
   O arquivo .json é um dicionário em que as chaves são os logins e os valores são os pontos do respectivo jogador. A cada vez que o código é rodado, o dicionário é reordenado de forma que monte um ranking dos jogadores com maior pontuação.
-  No final da feira, o jogador com maior pontuação ganhará um prêmio.
+
 
 Link apresentando jogo:
 
