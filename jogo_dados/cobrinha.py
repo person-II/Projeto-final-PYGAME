@@ -3,6 +3,8 @@ import random
 
 
 py.init()
+py.mixer.init()
+
 py.display.set_caption("ACADEMIA PYTHON COBRINHA")
 largura, altura = 1300, 700
 tela = py.display.set_mode((largura, altura))
@@ -13,6 +15,9 @@ relogio = py.time.Clock()
 fundo = py.image.load('assets/acad.png').convert_alpha()
 fundo.set_alpha(190)
 fundo = py.transform.scale(fundo, (largura, altura))
+
+moedinha_audio = py.mixer.Sound('assets/jogo dados/audio moedinha.mp3')
+moedinha_audio.set_volume(0.7)
 
 # cores RGB
 preta = (0, 0, 0)
@@ -165,8 +170,9 @@ def rodar_jogo():
         # atualizacao da tela
         py.display.update()
 
-        #nova comida
+        #comer comida
         if x == comida_x and y == comida_y:
+            moedinha_audio.play()
             tamanho_cobra += 1
             veloc += 0.5 
             comida_x, comida_y = gerar_comida()
