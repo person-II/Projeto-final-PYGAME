@@ -26,7 +26,7 @@ tamanho_quadrado_comida = 50
 velocidade_jogo = 5
 
 #foto corpo
-fotocobra = py.image.load('assets/prof.png')
+fotocobra = py.image.load('assets/prof.png').convert_alpha()
 fotocobra = py.transform.scale(fotocobra, (tamanho_quadrado_cobra, tamanho_quadrado_cobra))
 profinteiro = py.transform.scale(fotocobra, (largura,altura))
 
@@ -111,6 +111,7 @@ def tela_fim(pontuacao):
 #código do jogo em si
 
 def rodar_jogo():
+    py.display.set_mode((1300, 700))
     veloc = velocidade_jogo
     fim_jogo = False
 
@@ -131,9 +132,9 @@ def rodar_jogo():
         tela.blit(fundo, (0,0))
         
         for event in py.event.get():
-            if event.type == py.QUIT:
-                fim_jogo = True
-            elif event.type == py.KEYDOWN:
+            # if event.type == py.QUIT:
+            #     fim_jogo = True
+            if event.type == py.KEYDOWN:
                 velocidade_x, velocidade_y = selecionar_velocidade(event.key, velocidade_x, velocidade_y)
 
         # desenhar_comida
@@ -172,15 +173,16 @@ def rodar_jogo():
 
         relogio.tick(veloc)
         #pegar pontuacao final:
-        guarda_pontuacao(tamanho_cobra-1)
-        
-        if fim_jogo:
-            tela_fim(tamanho_cobra - 1)
-            # tela davi - intermediaria
-            # if sair:
-            # tela ranking (saida)
-            # else apostar:
-            # jogo dado back bo
+        # guarda_pontuacao(tamanho_cobra-1)
 
-        
-rodar_jogo()
+        if fim_jogo:
+            # decision = tela_intermed()
+            # if decision == 'bet':
+            #     pass
+            #     # Transition to back bo game
+            # elif decision == 'exit':
+            #     pass
+            #     # Exit the game or return to main menu
+            return guarda_pontuacao(tamanho_cobra - 1)
+
+# rodar_jogo()

@@ -21,8 +21,8 @@ rect_az = rect_az_surf.get_rect(topleft=(125, 270))
 # ? espaço para play again
 play_again = my_font2.render('pressione espaço para', False, 'Black')
 play_again2 = my_font2.render('jogar novamente', False, 'Black')
-again_rect = play_again.get_rect(center=(265, 480))
-again2_rect = play_again2.get_rect(center=(265, 505))
+again_rect = play_again.get_rect(center=(265, 520))
+again2_rect = play_again2.get_rect(center=(265, 545))
 
 # ? fichas e legendas
 ficha_v_5 = image.load('assets/jogo dados/ficha vermelha.png')
@@ -44,13 +44,13 @@ lg_allwin = my_font2.render('ALL IN', False, 'Black')
 
 # ? caixa enter texto
 enter_button = Surface((100, 55))
-enter_button_rect = enter_button.get_rect(topleft=(10, 540))
+enter_button_rect = enter_button.get_rect(topleft=(310, 280))
 enter_txt = my_font2.render('Enter', False, 'Black')
-enter_txt_rect = enter_txt.get_rect(topleft=(28, 550))
+enter_txt_rect = enter_txt.get_rect(topleft=(328, 280))
 
 # ? caixa de texto
 username = ''
-input_rect = Rect(120, 540, 140, 55)
+input_rect = Rect(420, 280, 140, 55)
 color_active = Color('Light Gray')
 color_passive = Color('lightskyblue3')
 colorr = color_passive
