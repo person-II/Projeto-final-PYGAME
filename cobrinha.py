@@ -74,6 +74,10 @@ def selecionar_velocidade(tecla, velocidade_x, velocidade_y):
 
     return velocidade_x, velocidade_y
 
+def guarda_pontuacao(pontuacao):
+    pont = pontuacao*10
+    return pont
+
 def desenhar_grid():
     
     cor_clara = (50, 50, 50)  # Cor mais clara para o grid
@@ -167,7 +171,9 @@ def rodar_jogo():
             comida_x, comida_y = gerar_comida()
 
         relogio.tick(veloc)
-
+        #pegar pontuacao final:
+        guarda_pontuacao(tamanho_cobra-1)
+        
         if fim_jogo:
             tela_fim(tamanho_cobra - 1)
             # tela davi - intermediaria
@@ -176,4 +182,5 @@ def rodar_jogo():
             # else apostar:
             # jogo dado back bo
 
+        
 rodar_jogo()
