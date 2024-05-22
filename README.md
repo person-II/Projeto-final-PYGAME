@@ -15,8 +15,10 @@ Explicações de como jogar o jogo:
 
 
 Link apresentando jogo:
+  https://drive.google.com/file/d/1i2moFDUhHTVGvW2arcClWotElFQYYqKF/view?usp=sharing
 
 Quais bibliotecas/modules a instalar:
 
 Referências e Inspirações:
   - Cobrinha: https://youtu.be/bgsmYOm-W80?si=VcoeS6BtTXdUKvLk
+  - Jogo dados aposta - referência no jogo de apostas de cassino on-line, conhecido como back bo
