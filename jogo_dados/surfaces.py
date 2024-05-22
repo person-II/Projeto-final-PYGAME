@@ -15,6 +15,8 @@ tie_rect = tie.get_rect(center=(280, 150))
 # ? quadrado escolha cor
 rect_ver_surf = Surface((100, 65))
 rect_az_surf = Surface((100, 65))
+rect_green_surf = Surface((80, 65))
+rect_green = rect_green_surf.get_rect(topleft=(245, 270))
 rect_ver = rect_ver_surf.get_rect(topleft=(345, 270))
 rect_az = rect_az_surf.get_rect(topleft=(125, 270))
 

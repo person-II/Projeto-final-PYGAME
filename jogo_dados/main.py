@@ -49,14 +49,15 @@ def FaceValue(group):
 
     return values[0], values[1]
 
-def betting(aposta, win):
+def betting(aposta, win, tie):
     global PONTOS_INICIAIS
 
-    if win == True:
-        PONTOS_INICIAIS += (aposta * 2)
-    elif win == 'tie':
-        PONTOS_INICIAIS += aposta
-    elif win == False:    
+    if win:
+        if not tie:
+            PONTOS_INICIAIS += (aposta * 2)
+        else:
+            PONTOS_INICIAIS += (aposta * 8)
+    elif not win: 
         pass
         # ja perdeu dinheiro na aposta
 
@@ -189,6 +190,10 @@ while running:
                             clicou = True
                             cor = 'vermelho'
 
+                        elif rect_green.collidepoint(mouse_pos):
+                            clicou = True
+                            cor = 'verde'
+
             if not can_bet:
                 one_time = True
                 if ev.type == KEYDOWN:
@@ -201,6 +206,7 @@ while running:
                     has_bet = False
                     Reset_animation()
                     if ev.key == K_RETURN:
+                        AcessDatabase()
                         game_state = 'RANKINGS'
 
     if game_state == 'USERNAME':
@@ -278,7 +284,9 @@ while running:
 
     elif game_state == 'BACK_BO':
         if lost:
+            AcessDatabase()
             game_state = 'RANKINGS'
+
 
         if one_time:
             AcessDatabase()
@@ -302,13 +310,19 @@ while running:
             tela.blit(temp_surf, (0,0))
             draw.rect(temp_surf, (255, 0, 0, 50), rect_ver, border_radius=15)
             tela.blit(temp_surf, (0,0))
+            draw.rect(temp_surf, (0, 255, 0, 50), rect_green, border_radius=15)
+            tela.blit(temp_surf, (0,0))
+
             if cor == 'vermelho':
                 draw.rect(tela, 'Red', rect_ver, border_radius=15, width=3)
-            else:
+            elif cor == 'azul':
                 draw.rect(tela, 'Blue', rect_az, border_radius=15, width=3)
+            else:
+                draw.rect(tela, 'Green', rect_green, border_radius=15, width=3)
         else:
             draw.rect(tela, 'Blue', rect_az, border_radius=15)
             draw.rect(tela, 'Red', rect_ver, border_radius=15)
+            draw.rect(tela, 'Green', rect_green, border_radius=15)
 
         # * fichas e legendas
         tela.blit(ficha_v_5, ficha5_rect)
@@ -365,15 +379,19 @@ while running:
                         surf.set_alpha(90)
                         tela.blit(surf, (0,0))
                         win = True
+                        tie = False
                     elif WinningSide == 'azul':
                         tela.blit(defeat, def_rect)
                         surf.fill('#5657FF')
                         surf.set_alpha(90)
                         tela.blit(surf, (0,0))
                         win = False
-                    else:
-                        tela.blit(tie, tie_rect)
-                        win = 'tie'
+                        tie = False
+                    elif WinningSide == 'verde':
+                        tela.blit(defeat, def_rect)
+                        win = False
+                        tie = False
+
                 elif cor == 'azul':
                     if WinningSide == 'vermelho':
                         tela.blit(defeat, def_rect)
@@ -381,17 +399,41 @@ while running:
                         surf.set_alpha(90)
                         tela.blit(surf, (0,0))
                         win = False
+                        tie = False
                     elif WinningSide == 'azul':
                         tela.blit(victory, vic_rect)
                         surf.fill('#5657FF')
                         surf.set_alpha(90)
                         tela.blit(surf, (0,0))
                         win = True
+                        tie = False
+                    elif WinningSide == 'verde':
+                        tela.blit(defeat, def_rect)
+                        win = False
+                        tie = False
+
+                elif cor == 'verde':
+                    if WinningSide == 'vermelho':
+                        tela.blit(defeat, def_rect)
+                        surf.fill('Red')
+                        surf.set_alpha(90)
+                        tela.blit(surf, (0,0))
+                        win = False
+                        tie = False
+                    elif WinningSide == 'azul':
+                        tela.blit(defeat, def_rect)
+                        surf.fill('#5657FF')
+                        surf.set_alpha(90)
+                        tela.blit(surf, (0,0))
+                        win = False
+                        tie = False
                     else:
-                        tela.blit(tie, tie_rect)
-                        win = 'tie'
+                        tela.blit(victory, vic_rect)
+                        win = True
+                        tie = True
+
                 if can_bet:
-                    betting(aposta, win)
+                    betting(aposta, win, tie)
                     can_bet = False
 
                 if PONTOS_INICIAIS == 0:

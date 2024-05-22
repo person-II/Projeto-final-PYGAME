@@ -176,6 +176,7 @@ def rodar_jogo():
         # guarda_pontuacao(tamanho_cobra-1)
 
         if fim_jogo:
+            tela_fim(tamanho_cobra - 1)
             # decision = tela_intermed()
             # if decision == 'bet':
             #     pass
